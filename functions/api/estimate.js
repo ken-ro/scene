@@ -1,5 +1,4 @@
-const RECIPIENT_EMAIL = 'info@robinfactory.co.jp';
-const SENDER_EMAIL = 'noreply@scene.robinfactory.co.jp';
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzHLvOIfZcDp_Kyqk24SftRpOTgMl8-87j61BFmxe9nkQMoYOjMlpP50-IMfffRq-e_/exec';
 
 function redirectWithStatus(request, status) {
 	const url = new URL('/bouhan-vest/estimate/', request.url);
@@ -37,63 +36,21 @@ export async function onRequestPost(context) {
 		return redirectWithStatus(request, 'error');
 	}
 
-	const subjectParts = ['【scene】無料見積フォーム'];
-
-	if (payload.organization) {
-		subjectParts.push(payload.organization);
-	}
-
-	if (payload.name) {
-		subjectParts.push(payload.name);
-	}
-
-	const messageLines = [
-		'無料見積フォームからお問い合わせがありました。',
-		'',
-		`団体名: ${payload.organization || '未入力'}`,
-		`担当者名: ${payload.name}`,
-		`メールアドレス: ${payload.email}`,
-		`電話番号: ${payload.tel || '未入力'}`,
-		`使用目的: ${payload.purpose || '未入力'}`,
-		`希望商品: ${payload.item || '未入力'}`,
-		`枚数: ${payload.quantity || '未入力'}`,
-		`希望納期: ${payload.delivery || '未入力'}`,
-		`書類対応: ${payload.documents || '未入力'}`,
-		'',
-		'プリント内容・ご相談内容:',
-		payload.message,
-	];
-
-	const mailResponse = await fetch('https://api.mailchannels.net/tx/v1/send', {
+	const gasResponse = await fetch(GAS_ENDPOINT, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',
 		},
-		body: JSON.stringify({
-			personalizations: [
-				{
-					to: [{ email: RECIPIENT_EMAIL, name: 'Robin Factory' }],
-				},
-			],
-			from: {
-				email: SENDER_EMAIL,
-				name: 'scene 無料見積フォーム',
-			},
-			reply_to: {
-				email: payload.email,
-				name: payload.name,
-			},
-			subject: subjectParts.join(' / '),
-			content: [
-				{
-					type: 'text/plain',
-					value: messageLines.join('\n'),
-				},
-			],
-		}),
+		body: JSON.stringify(payload),
 	});
 
-	if (!mailResponse.ok) {
+	if (!gasResponse.ok) {
+		return redirectWithStatus(request, 'error');
+	}
+
+	const result = await gasResponse.json().catch(() => null);
+
+	if (!result?.ok) {
 		return redirectWithStatus(request, 'error');
 	}
 
