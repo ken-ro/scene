@@ -13,6 +13,9 @@ const faqItems = [
 ];
 
 const estimateRecipient = 'info@robinfactory.co.jp';
+const estimateSuccessUrl = Astro.site
+	? new URL('/bouhan-vest/estimate/?sent=1', Astro.site).toString()
+	: '/bouhan-vest/estimate/?sent=1';
 ---
 
 <BaseLayout
@@ -42,10 +45,11 @@ const estimateRecipient = 'info@robinfactory.co.jp';
 				<p class="table-note" style="margin-bottom: 22px;">
 					分かる項目だけで構いません。清掃活動 ベストやボランティア ビブス 名入れで迷っている段階でも、あとからご相談しながら詰めていけます。
 				</p>
-				<form class="estimate-form" name="estimate" method="post" data-recipient={estimateRecipient} novalidate>
+				<form class="estimate-form" name="estimate" method="post" action={`https://formsubmit.co/${estimateRecipient}`} novalidate>
 					<input type="hidden" name="_subject" value="【scene】無料見積フォームからお問い合わせ" />
 					<input type="hidden" name="_captcha" value="false" />
 					<input type="hidden" name="_template" value="table" />
+					<input type="hidden" name="_next" value={estimateSuccessUrl} />
 					<input type="text" name="_honey" class="form-hidden-field" tabindex="-1" autocomplete="off" />
 					<label>
 						<span>団体名</span>
@@ -169,7 +173,7 @@ const estimateRecipient = 'info@robinfactory.co.jp';
 		if (estimateForm instanceof HTMLFormElement) {
 			const submitButton = estimateForm.querySelector('button[type="submit"]');
 			const statusElement = estimateForm.querySelector('[data-form-status]');
-			const recipient = estimateForm.dataset.recipient;
+			const searchParams = new URLSearchParams(window.location.search);
 
 			const setStatus = (message, state) => {
 				if (!(statusElement instanceof HTMLElement)) {
@@ -180,53 +184,37 @@ const estimateRecipient = 'info@robinfactory.co.jp';
 				statusElement.dataset.state = state;
 			};
 
-			estimateForm.addEventListener('submit', async (event) => {
-				event.preventDefault();
+			if (searchParams.get('sent') === '1') {
+				setStatus('見積依頼を送信しました。担当者が内容を確認のうえご連絡します。', 'success');
+				window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+			}
 
-				if (!recipient) {
-					setStatus('送信先の設定が見つからないため、フォームを送信できません。', 'error');
-					return;
-				}
+			estimateForm.addEventListener('submit', (event) => {
 
 				if (!estimateForm.reportValidity()) {
+					event.preventDefault();
 					setStatus('必須項目を入力してから送信してください。', 'error');
 					return;
 				}
 
 				const formData = new FormData(estimateForm);
-				formData.append('_replyto', String(formData.get('email') ?? ''));
+				const replyTo = String(formData.get('email') ?? '');
+				let replyToField = estimateForm.querySelector('input[name="_replyto"]');
+
+				if (!(replyToField instanceof HTMLInputElement)) {
+					replyToField = document.createElement('input');
+					replyToField.type = 'hidden';
+					replyToField.name = '_replyto';
+					estimateForm.append(replyToField);
+				}
+
+				replyToField.value = replyTo;
 
 				if (submitButton instanceof HTMLButtonElement) {
 					submitButton.disabled = true;
 				}
 
 				setStatus('送信中です。数秒お待ちください。', 'sending');
-
-				try {
-					const response = await fetch(`https://formsubmit.co/ajax/${recipient}`, {
-						method: 'POST',
-						headers: {
-							Accept: 'application/json',
-						},
-						body: formData,
-					});
-
-					const result = await response.json().catch(() => null);
-
-					if (!response.ok || result?.success !== 'true') {
-						throw new Error(result?.message || '送信に失敗しました。');
-					}
-
-					estimateForm.reset();
-					setStatus('見積依頼を送信しました。担当者が内容を確認のうえご連絡します。', 'success');
-				} catch (error) {
-					console.error(error);
-					setStatus('送信に失敗しました。時間をおいて再度お試しいただくか、お電話でご相談ください。', 'error');
-				} finally {
-					if (submitButton instanceof HTMLButtonElement) {
-						submitButton.disabled = false;
-					}
-				}
 			});
 		}
 	</script>
