@@ -1113,6 +1113,46 @@ tbody td:last-child {
 	min-height: 64px;
 	font-size: 17px;
 }
+.estimate-form .button:disabled {
+	opacity: 0.7;
+	cursor: wait;
+	transform: none;
+}
+.form-hidden-field {
+	position: absolute;
+	left: -9999px;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+	pointer-events: none;
+}
+.form-status {
+	display: none;
+	margin: -2px 0 0;
+	padding: 14px 16px;
+	border-radius: var(--radius);
+	font-size: 14px;
+	line-height: 1.7;
+	border: 1px solid transparent;
+}
+.form-status[data-state] {
+	display: block;
+}
+.form-status[data-state='sending'] {
+	background: #fff9e8;
+	border-color: rgba(180, 134, 34, 0.35);
+	color: #6f5311;
+}
+.form-status[data-state='success'] {
+	background: #edf8f1;
+	border-color: rgba(46, 125, 50, 0.24);
+	color: #1f5f2d;
+}
+.form-status[data-state='error'] {
+	background: #fff1ee;
+	border-color: rgba(183, 56, 28, 0.24);
+	color: #9c2e16;
+}
 
 /* ============================================================
    商品詳細カード

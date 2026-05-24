@@ -11,6 +11,8 @@ const faqItems = [
 	['追加注文はできますか。', 'できます。前回の内容が分かれば、追加注文のご相談はかなり進めやすくなります。'],
 	['納期はどのくらいですか。', '内容と在庫次第で変わります。清掃活動や地域行事の日程が決まっている場合は、先にその日程を伝えていただくのが確実です。'],
 ];
+
+const estimateRecipient = 'info@robinfactory.co.jp';
 ---
 
 <BaseLayout
@@ -40,22 +42,26 @@ const faqItems = [
 				<p class="table-note" style="margin-bottom: 22px;">
 					分かる項目だけで構いません。清掃活動 ベストやボランティア ビブス 名入れで迷っている段階でも、あとからご相談しながら詰めていけます。
 				</p>
-				<form class="estimate-form" name="estimate" method="post">
+				<form class="estimate-form" name="estimate" method="post" data-recipient={estimateRecipient} novalidate>
+					<input type="hidden" name="_subject" value="【scene】無料見積フォームからお問い合わせ" />
+					<input type="hidden" name="_captcha" value="false" />
+					<input type="hidden" name="_template" value="table" />
+					<input type="text" name="_honey" class="form-hidden-field" tabindex="-1" autocomplete="off" />
 					<label>
 						<span>団体名</span>
 						<input type="text" name="organization" placeholder="例: ○○自治会" />
 					</label>
 					<label>
-						<span>担当者名</span>
-						<input type="text" name="name" placeholder="例: 山田 太郎" />
+						<span>担当者名<span class="required">必須</span></span>
+						<input type="text" name="name" placeholder="例: 山田 太郎" required autocomplete="name" />
 					</label>
 					<label>
-						<span>メールアドレス</span>
-						<input type="email" name="email" placeholder="例: info@example.jp" />
+						<span>メールアドレス<span class="required">必須</span></span>
+						<input type="email" name="email" placeholder="例: info@example.jp" required autocomplete="email" />
 					</label>
 					<label>
 						<span>電話番号</span>
-						<input type="tel" name="tel" placeholder="例: 090-1234-5678" />
+						<input type="tel" name="tel" placeholder="例: 090-1234-5678" autocomplete="tel" />
 					</label>
 					<label>
 						<span>使用目的</span>
@@ -91,8 +97,8 @@ const faqItems = [
 						</label>
 					</div>
 					<label>
-						<span>プリント内容・ご相談内容</span>
-						<textarea name="message" rows="6" placeholder="例: 背中に自治会名、左胸に地区名を入れたい"></textarea>
+						<span>プリント内容・ご相談内容<span class="required">必須</span></span>
+						<textarea name="message" rows="6" placeholder="例: 背中に自治会名、左胸に地区名を入れたい" required></textarea>
 					</label>
 					<div class="form-grid-two">
 						<label>
@@ -110,6 +116,7 @@ const faqItems = [
 						</label>
 					</div>
 					<p class="form-note">活動名、枚数、希望時期の3つが入っていると、団体名入りビブスのご案内がかなり早くしやすくなります。</p>
+					<p class="form-status" data-form-status aria-live="polite"></p>
 					<button class="button button-primary" type="submit">内容を確認して見積依頼へ進む<span class="arrow">›</span></button>
 				</form>
 			</div>
@@ -155,4 +162,72 @@ const faqItems = [
 			))}
 		</div>
 	</section>
+
+	<script is:inline>
+		const estimateForm = document.querySelector('.estimate-form');
+
+		if (estimateForm instanceof HTMLFormElement) {
+			const submitButton = estimateForm.querySelector('button[type="submit"]');
+			const statusElement = estimateForm.querySelector('[data-form-status]');
+			const recipient = estimateForm.dataset.recipient;
+
+			const setStatus = (message, state) => {
+				if (!(statusElement instanceof HTMLElement)) {
+					return;
+				}
+
+				statusElement.textContent = message;
+				statusElement.dataset.state = state;
+			};
+
+			estimateForm.addEventListener('submit', async (event) => {
+				event.preventDefault();
+
+				if (!recipient) {
+					setStatus('送信先の設定が見つからないため、フォームを送信できません。', 'error');
+					return;
+				}
+
+				if (!estimateForm.reportValidity()) {
+					setStatus('必須項目を入力してから送信してください。', 'error');
+					return;
+				}
+
+				const formData = new FormData(estimateForm);
+				formData.append('_replyto', String(formData.get('email') ?? ''));
+
+				if (submitButton instanceof HTMLButtonElement) {
+					submitButton.disabled = true;
+				}
+
+				setStatus('送信中です。数秒お待ちください。', 'sending');
+
+				try {
+					const response = await fetch(`https://formsubmit.co/ajax/${recipient}`, {
+						method: 'POST',
+						headers: {
+							Accept: 'application/json',
+						},
+						body: formData,
+					});
+
+					const result = await response.json().catch(() => null);
+
+					if (!response.ok || result?.success !== 'true') {
+						throw new Error(result?.message || '送信に失敗しました。');
+					}
+
+					estimateForm.reset();
+					setStatus('見積依頼を送信しました。担当者が内容を確認のうえご連絡します。', 'success');
+				} catch (error) {
+					console.error(error);
+					setStatus('送信に失敗しました。時間をおいて再度お試しいただくか、お電話でご相談ください。', 'error');
+				} finally {
+					if (submitButton instanceof HTMLButtonElement) {
+						submitButton.disabled = false;
+					}
+				}
+			});
+		}
+	</script>
 </BaseLayout>
