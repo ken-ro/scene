@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../data/site';
+
+const useCases = [
+	{
+		title: '自治会・町内会で使う場合',
+		copy: '役員さんが着るなら、まずは誰のベストか分かることが大事です。背中に自治会名、左胸に地区名や役職を入れる形がいちばん無理なく使われています。毎年使うなら、追加しやすい定番を選んでおくと後が楽です。',
+	},
+	{
+		title: '防犯パトロールで使う場合',
+		copy: '夜の巡回なら、まず見つけやすさを優先したいところです。反射材付きのベストが基本で、背中の文字も少し大きめにしたほうが実際には見やすくなります。',
+	},
+	{
+		title: '見守り隊で使う場合',
+		copy: '登下校の見守りは、重いものより軽くて動きやすいもののほうが続けやすいです。短時間ならメッシュ、役割を分けたいならビブス、という選び方が分かりやすいと思います。',
+	},
+	{
+		title: '防災訓練で使う場合',
+		copy: '本部、誘導、受付など役割を見分けたい場面では、団体名より役割名が効くこともあります。訓練のたびに使うなら、流用しやすい表記にしておくのが現実的です。',
+	},
+	{
+		title: '清掃活動・地域イベントで使う場合',
+		copy: '清掃や地域イベントのように短時間で動く日は、着脱しやすさがかなり大事です。初参加の方にも分かりやすいよう、団体名は少し大きめに入れておくほうが案内しやすくなります。',
+	},
+];
+---
+
+<BaseLayout
+	title="自治会・町内会ビブス名入れ｜町内会ベスト・地域名入りビブスの作り方"
+	description="自治会ビブス名入れ、町内会ビブス名入れ、町内会ベスト、地域名入りビブスの選び方と名入れの考え方をまとめたページです。"
+	path={sectionPaths.guide}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<span>用途ガイド</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">自治会・町内会ビブス名入れ</span>
+		<h1>自治会・町内会ビブス名入れでよく相談される内容をまとめました</h1>
+		<p class="lead">
+			自治会ビブス、町内会ビブス、町内会ベストは、同じように見えても使う場面で向き不向きがあります。
+			このページでは、地域名入りビブスや団体名入りベストのご相談で、実際によく分かれるポイントをまとめています。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="section-title-bar">
+			<h2>自治会・町内会で使うビブスの選び方</h2>
+			<div class="section-sub">自治会名、町内会名、地域名をどう入れるかで見やすさがかなり変わります</div>
+		</div>
+		<div class="use-case-stack">
+			{useCases.map((useCase, index) => (
+				<article class="use-case-card">
+					<div class="use-case-index">0{index + 1}</div>
+					<div>
+						<h2>{useCase.title}</h2>
+						<p>{useCase.copy}</p>
+					</div>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<section class="scene-section">
+		<div class="scene-photo">
+			<img src="/patrol.png" alt="地域見守りパトロール隊が揃いのベストで歩く様子" />
+			<span class="scene-tag">見守り・防犯パトロール</span>
+		</div>
+		<div class="scene-copy">
+			<span class="scene-eyebrow">実際の活用シーン</span>
+			<h2>自治会名や町内会名が入っていると、役割が伝わりやすいです</h2>
+			<p>
+				自治会活動や町内会行事では、揃いのビブスやベストがあるだけで、誰が担当なのかかなり分かりやすくなります。
+				地域名入りビブス、団体名入りベストとして使うなら、背中の文字は少し大きめにしておくほうが実際には見やすいです。
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="section-title-bar">
+			<h2>町内会ビブス名入れの相談時に伝えると早い内容</h2>
+			<div class="section-sub">自治会ビブス 名入れでも、この3つが分かると話がかなり早くなります</div>
+		</div>
+		<div class="info-grid">
+			<article class="info-card">
+				<h3><span class="card-no">01</span>使用目的</h3>
+				<p>夏祭り、防災訓練、町内清掃、役員用など、まずは何の活動で使うかを伝えていただくのが近道です。</p>
+			</article>
+			<article class="info-card">
+				<h3><span class="card-no">02</span>枚数と着用時期</h3>
+				<p>夏場中心か、秋の行事や防災訓練でも使うかで候補が変わります。枚数はきっちりでなくても、おおよそで大丈夫です。</p>
+			</article>
+			<article class="info-card">
+				<h3><span class="card-no">03</span>以前の仕様</h3>
+				<p>前に作った町内会ベストや自治会ビブスがあれば、その写真や文字内容がかなり役立ちます。追加も作り直しも話が早くなります。</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="cta-banner">
+		<div>
+			<span class="section-kicker">見積は無料です</span>
+			<h2>自治会ビブスや町内会ベストの内容がまだ固まっていなくても大丈夫です</h2>
+			<p>地域名入りビブスにしたい、団体名入りベストにしたい、といった段階でも問題ありません。使う場面を伺えれば候補はこちらでかなり絞れます。</p>
+		</div>
+		<a class="button button-primary" href={sectionPaths.estimate}>見積フォームへ進む<span class="arrow">›</span></a>
+	</section>
+</BaseLayout>

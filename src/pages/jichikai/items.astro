@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../data/site';
+
+const products = [
+	{
+		no: '01',
+		title: '防犯パトロールベスト',
+		bestFor: '夜間パトロール、交通安全活動、地域安全パトロール',
+		features: ['背中に防犯パトロールの文字を大きく入れやすい', '反射材付きで夜間の視認性を確保しやすい', '自治会や防犯協会の定番として相談が多い'],
+		priceLot: '10枚・左胸1色で',
+		priceNum: '1枚あたり 2,900円前後',
+	},
+	{
+		no: '02',
+		title: '反射ベスト',
+		bestFor: '見守り隊、登下校の見守り、交通安全活動',
+		features: ['地域見守り隊ベストとして使いやすい', '蛍光イエローやオレンジ系で目立ちやすい', '胸プリントと背中プリントの組み合わせもしやすい'],
+		priceLot: '20枚・背中1色で',
+		priceNum: '1枚あたり 2,400円前後',
+	},
+	{
+		no: '03',
+		title: '見守り隊ビブス',
+		bestFor: '学校関連、PTA、登下校の見守り、短時間の巡回',
+		features: ['軽くて着脱しやすい', '学校名やPTA名も入れやすい', '短時間の見守り活動でも負担が少ない'],
+		priceLot: '20枚・背中1色で',
+		priceNum: '1枚あたり 2,200円前後',
+	},
+	{
+		no: '04',
+		title: '安全ベスト',
+		bestFor: '道路沿いの活動、交通安全、防犯当番',
+		features: ['反射テープ付きで道路沿いでも見やすい', '自治会名や町内会名を入れて識別しやすい', '小ロット相談にも向いている'],
+		priceLot: '10枚・背中1色で',
+		priceNum: '1枚あたり 2,700円前後',
+	},
+	{
+		no: '05',
+		title: '防災ベスト',
+		bestFor: '自主防災組織、避難訓練、備蓄担当の視認用',
+		features: ['役割表示との相性がよい', '訓練時の識別に便利', '落ち着いた配色でも見やすい'],
+		priceLot: '10枚・背中1色で',
+		priceNum: '1枚あたり 3,100円前後',
+	},
+];
+---
+
+<BaseLayout
+	title="防犯パトロールベスト名入れ｜防犯ベスト・反射ベスト・見守り隊ビブスの相談"
+	description="防犯パトロールベスト名入れ、防犯ベストプリント、反射ベスト名入れ、見守り隊ビブスの選び方と料金目安をまとめています。"
+	path={sectionPaths.items}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<span>商品と料金</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">防犯パトロールベスト名入れ</span>
+		<h1>防犯パトロールベスト名入れでよく選ばれる種類をまとめました</h1>
+		<p class="lead">
+			防犯パトロールベスト、反射ベスト、安全ベスト、見守り隊ビブスなど、よく相談をいただくものだけに絞っています。
+			夜間パトロールなのか、登下校の見守りなのかで向くものが変わるので、まずは使い方に合う種類を見ていただくのが近道です。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="section-title-bar">
+			<h2>夜間パトロール・見守り隊で使いやすい商品一覧</h2>
+			<div class="section-sub">防犯ベスト 名入れ、反射ベスト 名入れで探している方から相談の多い順に近い並びです</div>
+		</div>
+		<div class="product-stack">
+			{products.map((product) => (
+				<article class="product-detail-card">
+					<div class="product-no">{product.no}</div>
+					<div class="product-detail-main">
+						<h2>{product.title}</h2>
+						<span class="product-best-for">おすすめ用途</span>
+						<p class="product-best-for-text">{product.bestFor}</p>
+						<ul class="dot-list" style="margin-top: 14px;">
+							{product.features.map((feature) => (
+								<li>{feature}</li>
+							))}
+						</ul>
+					</div>
+					<div class="product-detail-meta">
+						<div class="price-chip">{product.priceLot}<br /><span class="price-num">{product.priceNum}</span></div>
+					</div>
+				</article>
+			))}
+		</div>
+		<p class="table-note" style="margin-top: 18px;">
+			※金額は在庫、反射材の仕様、名入れ位置、色数で前後します。防犯パトロールベスト プリントや見守り隊ビブスのご相談でも、まずは目安としてご覧ください。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="section-title-bar">
+			<h2>反射ベスト 名入れと見守り隊ビブスの選び方</h2>
+			<div class="section-sub">夜間パトロールか、登下校の見守りかで、見やすさと軽さの優先順位が変わります</div>
+		</div>
+		<div class="two-col two-col-wide">
+			<div>
+				<p>
+					防犯ベスト 名入れのご相談でも、夜に使うのか、昼の見守りか、道路沿いかで向く商品は変わります。
+					年間を通して使う団体さんだと、夜間パトロール用は反射ベスト、日中の見守り用は軽いビブス、と分けて考えることも珍しくありません。
+				</p>
+			</div>
+			<div class="panel-stack">
+				<div class="panel-card">
+					<span class="panel-label">夜間活動が中心の場合</span>
+					<p>まずは見つけやすさが優先です。防犯パトロールベスト 名入れなら、反射材付きのベストから考えるのが無難です。</p>
+				</div>
+				<div class="panel-card">
+					<span class="panel-label">夏場の見守り活動の場合</span>
+					<p>暑さが気になる時期は、軽さと風通しを優先したほうが続けやすいです。見守り隊ビブスやメッシュタイプが候補に上がりやすくなります。</p>
+				</div>
+				<div class="panel-card">
+					<span class="panel-label">秋冬に上着の上から着る場合</span>
+					<p>サイズ感が意外と大事です。上着の上から着る前提なら、少し余裕を見ておくほうが防犯当番や交通安全活動では使いやすくなります。</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cta-banner">
+		<div>
+			<span class="section-kicker">見積は無料です</span>
+			<h2>防犯パトロールベストを相談したいときは、用途からお聞かせください！</h2>
+			<p>夜の巡回なのか、登下校の見守りなのか。そのあたりから伺えれば、防犯ベストや見守り隊ビブスの候補をかなり絞ってご提案しやすくなります。</p>
+		</div>
+		<a class="button button-primary" href={sectionPaths.estimate}>見積フォームへ進む<span class="arrow">›</span></a>
+	</section>
+</BaseLayout>

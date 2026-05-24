@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../data/site';
+---
+
+<BaseLayout
+	title="プライバシーポリシー｜防犯ベスト・自治会ビブス名入れ専門店"
+	description="お問い合わせ時に取得する個人情報の取り扱い方針を掲載しています。"
+	path={sectionPaths.privacy}
+	noindex={true}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<span>プライバシーポリシー</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">プライバシーポリシー</span>
+		<h1>個人情報の取り扱いについて</h1>
+		<p class="lead">お問い合わせ時に取得した情報は、見積対応とご連絡のために利用します。</p>
+	</section>
+
+	<section class="section">
+		<div class="legal-copy">
+			<h2>1. 取得する情報</h2>
+			<p>団体名、担当者名、メールアドレス、電話番号、ご相談内容など、見積対応に必要な情報を取得します。</p>
+
+			<h2>2. 利用目的</h2>
+			<p>取得した情報は、お問い合わせへの回答、見積作成、制作に関するご連絡のために利用します。</p>
+
+			<h2>3. 第三者提供</h2>
+			<p>法令に基づく場合を除き、本人の同意なく第三者へ提供しません。</p>
+
+			<h2>4. 管理</h2>
+			<p>取得した情報は、漏えいや不正アクセスを防ぐために適切に管理します。</p>
+
+			<h2>5. お問い合わせ窓口</h2>
+			<p>個人情報の取り扱いに関するお問い合わせは、運営会社である株式会社ロビンファクトリー（TEL：050-3733-8888、営業時間：月曜-金曜 10:30-18:00、日・祝日を除く）までご連絡ください。</p>
+		</div>
+	</section>
+</BaseLayout>

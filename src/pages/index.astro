@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import { sceneEntries } from '../data/site';
+---
+
+<!doctype html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>scene | ロビンファクトリー特化サイト一覧</title>
+		<meta
+			name="description"
+			content="ロビンファクトリーの特化サイトを scene 配下で管理するための入口ページです。"
+		/>
+	</head>
+	<body>
+		<div class="page-shell">
+			<main class="page-main">
+				<div class="container">
+					<section class="page-hero" style="margin-top: 40px;">
+						<span class="eyebrow">scene</span>
+						<h1>特化サイトの管理入口</h1>
+						<p class="lead">
+							この親プロジェクトで、自治会、防犯、選挙、消防団、清掃ボランティア向けの特化サイトをまとめて管理していきます。
+						</p>
+					</section>
+
+					<section class="section">
+						<div class="section-title-bar">
+							<h2>現在の公開状況</h2>
+							<div class="section-sub">先に自治会・防犯向けサイトを載せ、他シーンを順次追加する想定です</div>
+						</div>
+						<div class="info-grid">
+							{sceneEntries.map((entry) => (
+								<article class="info-card">
+									<div class="section-kicker" style="margin-bottom: 10px;">{entry.status}</div>
+									<h2 style="font-size: 1.45rem; margin-bottom: 10px;">{entry.label}</h2>
+									<p>{entry.description}</p>
+									{entry.status === '公開中' ? (
+										<a class="button button-primary" href={entry.href} style="margin-top: 18px; display: inline-flex;">ページを開く<span class="arrow">›</span></a>
+									) : (
+										<span class="button button-secondary" style="margin-top: 18px; display: inline-flex; opacity: 0.75; pointer-events: none;">準備中</span>
+									)}
+								</article>
+							))}
+						</div>
+					</section>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>

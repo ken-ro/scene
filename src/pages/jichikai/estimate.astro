@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../data/site';
+
+const faqItems = [
+	['清掃ボランティア用のビブスにも名入れできますか。', 'はい、対応しています。清掃ボランティア ビブスや地域活動用ビブスとして、団体名入りでご相談いただくことも多いです。'],
+	['見積書・請求書・領収書は発行できますか。', '発行できます。会計処理で必要な書類が決まっている場合は、最初に伝えていただけると行き違いが少なくなります。'],
+	['ボランティア ビブス 名入れは何枚から相談できますか。', '10枚前後からの小ロット相談も多いです。清掃活動 ベストや地域活動ビブスでも、まず少ない枚数から始めるケースがあります。'],
+	['手書き原稿や写真からでも相談できますか。', 'はい、大丈夫です。文字内容や配置の参考になるものがあれば、きれいなデータでなくても構いません。'],
+	['サイズが混ざっていても注文できますか。', 'できます。特に冬場は上着の上から着る方もいるので、サイズが混ざる前提で考えることがよくあります。'],
+	['追加注文はできますか。', 'できます。前回の内容が分かれば、追加注文のご相談はかなり進めやすくなります。'],
+	['納期はどのくらいですか。', '内容と在庫次第で変わります。清掃活動や地域行事の日程が決まっている場合は、先にその日程を伝えていただくのが確実です。'],
+];
+---
+
+<BaseLayout
+	title="清掃ボランティア・地域活動ビブスの相談と見積り｜団体名入りビブス対応"
+	description="清掃ボランティア ビブス、地域活動ビブス、団体名入りビブス、清掃活動ベストの相談と見積りページです。小ロットや追加注文もご相談いただけます。"
+	path={sectionPaths.estimate}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<span>見積と相談</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">清掃ボランティア・地域活動ビブス</span>
+		<h1>清掃ボランティア・地域活動ビブスの相談と見積り</h1>
+		<p class="lead">
+			清掃ボランティア ビブス、地域活動ビブス、団体名入りビブスを作りたいときは、まず用途と枚数が分かれば十分です。
+			町内清掃、公園清掃、河川清掃、学校ボランティア、企業ボランティアまで、このページからご相談を始めていただけます。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="estimate-layout">
+			<div class="estimate-form-card">
+				<h2>無料見積フォーム</h2>
+				<p class="table-note" style="margin-bottom: 22px;">
+					分かる項目だけで構いません。清掃活動 ベストやボランティア ビブス 名入れで迷っている段階でも、あとからご相談しながら詰めていけます。
+				</p>
+				<form class="estimate-form" name="estimate" method="post">
+					<label>
+						<span>団体名</span>
+						<input type="text" name="organization" placeholder="例: ○○自治会" />
+					</label>
+					<label>
+						<span>担当者名</span>
+						<input type="text" name="name" placeholder="例: 山田 太郎" />
+					</label>
+					<label>
+						<span>メールアドレス</span>
+						<input type="email" name="email" placeholder="例: info@example.jp" />
+					</label>
+					<label>
+						<span>電話番号</span>
+						<input type="tel" name="tel" placeholder="例: 090-1234-5678" />
+					</label>
+					<label>
+						<span>使用目的</span>
+						<select name="purpose">
+							<option>防犯パトロール</option>
+							<option>登下校の見守り</option>
+							<option>自治会活動</option>
+							<option>町内会活動</option>
+							<option>防災訓練</option>
+							<option>交通安全活動</option>
+							<option>清掃ボランティア</option>
+							<option>地域清掃活動</option>
+							<option>学校ボランティア</option>
+							<option>清掃活動</option>
+							<option>その他</option>
+						</select>
+					</label>
+					<div class="form-grid-two">
+						<label>
+							<span>希望商品</span>
+							<select name="item">
+								<option>反射ベスト</option>
+								<option>メッシュベスト</option>
+								<option>パトロール用ビブス</option>
+								<option>清掃ボランティアビブス</option>
+								<option>地域活動ビブス</option>
+								<option>防災ベスト</option>
+							</select>
+						</label>
+						<label>
+							<span>枚数</span>
+							<input type="text" name="quantity" placeholder="例: 15枚" />
+						</label>
+					</div>
+					<label>
+						<span>プリント内容・ご相談内容</span>
+						<textarea name="message" rows="6" placeholder="例: 背中に自治会名、左胸に地区名を入れたい"></textarea>
+					</label>
+					<div class="form-grid-two">
+						<label>
+							<span>希望納期</span>
+							<input type="text" name="delivery" placeholder="例: 7月上旬まで" />
+						</label>
+						<label>
+							<span>書類対応</span>
+							<select name="documents">
+								<option>見積書のみ</option>
+								<option>請求書も必要</option>
+								<option>領収書も必要</option>
+								<option>未定</option>
+							</select>
+						</label>
+					</div>
+					<p class="form-note">活動名、枚数、希望時期の3つが入っていると、団体名入りビブスのご案内がかなり早くしやすくなります。</p>
+					<button class="button button-primary" type="submit">内容を確認して見積依頼へ進む<span class="arrow">›</span></button>
+				</form>
+			</div>
+
+			<div class="panel-stack">
+				<div class="panel-card">
+					<span class="panel-label">相談時のポイント</span>
+					<ul class="dot-list">
+						<li>まずは町内清掃、公園清掃、学校ボランティアなど、何の活動で使うかが分かると候補がかなり絞れます。</li>
+						<li>前に使っていたものがあれば、写真だけでも手がかりになります。</li>
+						<li>見積書や請求書の形式指定がある場合は、早めに伝えておくと確実です。</li>
+					</ul>
+				</div>
+				<div class="panel-card">
+					<span class="panel-label">運営会社</span>
+					<h2 style="font-size: 1.35rem; margin: 6px 0 10px;">株式会社ロビンファクトリー</h2>
+					<p>地域活動で使う名入れベストやビブスのご相談を受けている運営元です。</p>
+					<p>〒110-0012 東京都台東区竜泉1-28-4 東ネビル3階</p>
+					<p>適格請求書発行事業者登録番号：T9010501030536</p>
+					<p>ご相談内容を見ながら、清掃ボランティア ビブスや団体名入りベストの内容をひとつずつ詰めていきます。</p>
+				</div>
+				<div class="panel-card">
+					<span class="panel-label">お電話でのご相談</span>
+					<p style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--green-deep); font-weight: 700; margin-top: 6px;">050-3733-8888</p>
+					<p style="font-size: 14px; color: var(--ink-mute);">営業時間　月曜-金曜 10:30 - 18:00（日・祝日を除く）</p>
+					<p style="font-size: 14px; color: var(--ink-mute);">FAX：03-6368-4876</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="section-title-bar">
+			<h2>よくある質問</h2>
+			<div class="section-sub">清掃ボランティア ビブスや地域活動ビブスのご相談前によくいただく内容です</div>
+		</div>
+		<div class="faq-list">
+			{faqItems.map((item) => (
+				<details>
+					<summary>{item[0]}</summary>
+					<p>{item[1]}</p>
+				</details>
+			))}
+		</div>
+	</section>
+</BaseLayout>
