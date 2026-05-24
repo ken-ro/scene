@@ -33,7 +33,7 @@ export async function onRequestPost(context) {
 	};
 
 	if (!payload.name || !payload.email || !payload.message) {
-		return redirectWithStatus(request, 'error');
+		return redirectWithStatus(request, 'validation');
 	}
 
 	const gasResponse = await fetch(GAS_ENDPOINT, {
@@ -45,13 +45,13 @@ export async function onRequestPost(context) {
 	});
 
 	if (!gasResponse.ok) {
-		return redirectWithStatus(request, 'error');
+		return redirectWithStatus(request, 'gas-http');
 	}
 
 	const result = await gasResponse.json().catch(() => null);
 
 	if (!result?.ok) {
-		return redirectWithStatus(request, 'error');
+		return redirectWithStatus(request, 'gas-response');
 	}
 
 	return redirectWithStatus(request, 'sent');
