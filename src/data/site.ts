@@ -1,40 +1,38 @@
 export const siteOrigin = 'https://scene.robinfactory.co.jp';
 
 export const sectionPaths = {
-	home: '/jichikai/',
-	items: '/jichikai/items/',
-	guide: '/jichikai/guide/',
-	estimate: '/jichikai/estimate/',
-	privacy: '/jichikai/privacy/',
+	home: '/bouhan-vest/',
+	items: '/bouhan-vest/items/',
+	guide: '/bouhan-vest/guide/',
+	estimate: '/bouhan-vest/estimate/',
+	privacy: '/bouhan-vest/privacy/',
+} as const;
+
+export const futureScenePaths = {
+	senkyoBlouson: '/senkyo-blouson/',
+	shouboudan: '/shouboudan/',
 } as const;
 
 export const sceneEntries = [
 	{
-		slug: 'jichikai',
+		slug: 'bouhan-vest',
 		label: '自治会・防犯ベスト',
 		href: sectionPaths.home,
 		status: '公開中',
 		description: '防犯パトロール、見守り隊、自治会・町内会向けの名入れベスト案内です。',
 	},
 	{
-		slug: 'senkyo',
-		label: '選挙向けページ',
-		href: '/senkyo/',
+		slug: 'senkyo-blouson',
+		label: '選挙ブルゾン・ジャンパー',
+		href: futureScenePaths.senkyoBlouson,
 		status: '準備中',
-		description: '選挙スタッフ向けウェア案内は、この親プロジェクトに追加していきます。',
+		description: '選挙活動用ブルゾン・ジャンパーの名入れプリント案内を、この配下で構築していきます。',
 	},
 	{
 		slug: 'shouboudan',
-		label: '消防団向けページ',
-		href: '/shouboudan/',
+		label: '消防団・防災活動ベスト',
+		href: futureScenePaths.shouboudan,
 		status: '準備中',
-		description: '消防団・防災訓練向けの案内も同じ管理配下に増やせます。',
-	},
-	{
-		slug: 'seisou-volunteer',
-		label: '清掃ボランティア向けページ',
-		href: '/seisou-volunteer/',
-		status: '準備中',
-		description: '地域清掃やボランティア活動向けの特化ページを今後追加する想定です。',
+		description: '消防団名入りベスト、防災活動ビブスの案内も同じ親プロジェクト配下で増やしていきます。',
 	},
 ];

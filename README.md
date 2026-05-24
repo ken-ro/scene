@@ -2,16 +2,18 @@
 
 ロビンファクトリーの特化サイト群をまとめて管理する Astro 親プロジェクトです。
 
-現時点で公開対象になっているのは自治会・防犯向けの jichikai セクションで、将来的に senkyo、shouboudan、seisou-volunteer を同じリポジトリ配下に増やしていく前提です。
+現時点で公開対象になっているのは防犯ベスト向けの bouhan-vest セクションで、将来的に senkyo-blouson、shouboudan などを同じリポジトリ配下に増やしていく前提です。
 
 ## 現在のルート
 
 - / : scene の入口ページ
-- /jichikai/ : 防犯ベスト・自治会ビブス名入れ専門店
-- /jichikai/items/
-- /jichikai/guide/
-- /jichikai/estimate/
-- /jichikai/privacy/
+- /bouhan-vest/ : 防犯ベスト・自治会ビブス名入れ専門店
+- /bouhan-vest/items/
+- /bouhan-vest/guide/
+- /bouhan-vest/estimate/
+- /bouhan-vest/privacy/
+- /senkyo-blouson/
+- /shouboudan/
 
 共有URLは src/data/site.ts の sectionPaths で管理しています。
 
@@ -67,21 +69,21 @@ Cloudflare Pages の build image v3 では、Node.js は .node-version か .nvmr
 
 - scene.robinfactory.co.jp
 
-公開対象の自治会サイトは次のURLになります。
+公開対象の防犯ベストサイトは次のURLになります。
 
-- https://scene.robinfactory.co.jp/jichikai/
+- https://scene.robinfactory.co.jp/bouhan-vest/
 
 ## デプロイ後の確認
 
 公開後は少なくとも次を確認します。
 
 - / が scene の入口ページとして開く
-- /jichikai/ 以下の 5 ページがすべて開く
-- ヘッダー、フッター、CTA のリンクが /jichikai/ 配下に向いている
+- /bouhan-vest/ 以下の 5 ページがすべて開く
+- ヘッダー、フッター、CTA のリンクが /bouhan-vest/ 配下に向いている
 - canonical が scene.robinfactory.co.jp 基準になっている
 - privacy ページだけ noindex になっている
 
 ## 補足
 
 - Astro の site 設定は astro.config.mjs で scene.robinfactory.co.jp に固定済みです。
-- jichikai の内部リンクは src/data/site.ts から生成する形にしてあるため、今後別シーンを増やすときも同じやり方で展開できます。
+- bouhan-vest の内部リンクは src/data/site.ts から生成する形にしてあるため、今後別シーンを増やすときも同じやり方で展開できます。
