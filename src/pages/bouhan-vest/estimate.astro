@@ -12,10 +12,6 @@ const faqItems = [
 	['納期はどのくらいですか。', '内容と在庫次第で変わります。清掃活動や地域行事の日程が決まっている場合は、先にその日程を伝えていただくのが確実です。'],
 ];
 
-const estimateRecipient = 'info@robinfactory.co.jp';
-const estimateSuccessUrl = Astro.site
-	? new URL('/bouhan-vest/estimate/?sent=1', Astro.site).toString()
-	: '/bouhan-vest/estimate/?sent=1';
 ---
 
 <BaseLayout
@@ -45,11 +41,7 @@ const estimateSuccessUrl = Astro.site
 				<p class="table-note" style="margin-bottom: 22px;">
 					分かる項目だけで構いません。清掃活動 ベストやボランティア ビブス 名入れで迷っている段階でも、あとからご相談しながら詰めていけます。
 				</p>
-				<form class="estimate-form" name="estimate" method="post" action={`https://formsubmit.co/${estimateRecipient}`} novalidate>
-					<input type="hidden" name="_subject" value="【scene】無料見積フォームからお問い合わせ" />
-					<input type="hidden" name="_captcha" value="false" />
-					<input type="hidden" name="_template" value="table" />
-					<input type="hidden" name="_next" value={estimateSuccessUrl} />
+				<form class="estimate-form" name="estimate" method="post" action="/api/estimate" novalidate>
 					<input type="text" name="_honey" class="form-hidden-field" tabindex="-1" autocomplete="off" />
 					<label>
 						<span>団体名</span>
@@ -186,6 +178,9 @@ const estimateSuccessUrl = Astro.site
 
 			if (searchParams.get('sent') === '1') {
 				setStatus('見積依頼を送信しました。担当者が内容を確認のうえご連絡します。', 'success');
+				window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+			} else if (searchParams.get('error') === '1') {
+				setStatus('送信に失敗しました。時間をおいて再度お試しいただくか、お電話でご相談ください。', 'error');
 				window.history.replaceState({}, '', window.location.pathname + window.location.hash);
 			}
 
