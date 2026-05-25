@@ -1,4 +1,4 @@
-const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzHLvOIfZcDp_Kyqk24SftRpOTgMl8-87j61BFmxe9nkQMoYOjMlpP50-IMfffRq-e_/exec';
+const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyT6TwkszoUD1CYoluPkMUy-dcmEcI1-R2gdAioHqqZWiiCk32Jgvcn5_wZHyBkcLVd/exec';
 
 function redirectWithStatus(request, status) {
 	const url = new URL('/bouhan-vest/estimate/', request.url);
