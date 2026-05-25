@@ -1246,7 +1246,7 @@ tbody td:last-child {
 }
 .product-detail-visual {
 	margin: 0;
-	aspect-ratio: 1 / 1;
+	aspect-ratio: 4 / 5;
 	border-radius: var(--radius);
 	overflow: hidden;
 	background: var(--paper-deep);
