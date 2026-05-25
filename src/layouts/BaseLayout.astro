@@ -7,6 +7,7 @@ interface Props {
 	title: string;
 	description: string;
 	path?: string;
+	canonicalPath?: string;
 	noindex?: boolean;
 }
 
@@ -14,10 +15,16 @@ const {
 	title,
 	description,
 	path = '/',
+	canonicalPath = path,
 	noindex = false,
 } = Astro.props;
 
-const pageUrl = Astro.site ? new URL(path, Astro.site).toString() : undefined;
+const pageUrl = Astro.site ? new URL(canonicalPath, Astro.site).toString() : undefined;
+const ga4MeasurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID?.trim();
+const googleAdsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID?.trim();
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
+const googleTagIds = [ga4MeasurementId, googleAdsId].filter(Boolean);
+const primaryGoogleTagId = googleTagIds[0];
 
 const organizationSchema = {
 	'@context': 'https://schema.org',
@@ -65,6 +72,7 @@ const organizationSchema = {
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
+		{googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta property="og:type" content="website" />
@@ -74,6 +82,25 @@ const organizationSchema = {
 		{pageUrl && <link rel="canonical" href={pageUrl} />}
 		{pageUrl && <meta property="og:url" content={pageUrl} />}
 		{noindex && <meta name="robots" content="noindex,follow" />}
+		{primaryGoogleTagId && (
+			<script async src={`https://www.googletagmanager.com/gtag/js?id=${primaryGoogleTagId}`}></script>
+		)}
+		{googleTagIds.length > 0 && (
+			<script define:vars={{ googleTagIds }}>
+				window.dataLayer = window.dataLayer || [];
+
+				function gtag() {
+					window.dataLayer.push(arguments);
+				}
+
+				window.gtag = window.gtag || gtag;
+				window.gtag('js', new Date());
+
+				for (const googleTagId of googleTagIds) {
+					window.gtag('config', googleTagId);
+				}
+			</script>
+		)}
 		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 	</head>
 	<body>
