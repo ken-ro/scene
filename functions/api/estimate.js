@@ -1,4 +1,4 @@
-const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyT6TwkszoUD1CYoluPkMUy-dcmEcI1-R2gdAioHqqZWiiCk32Jgvcn5_wZHyBkcLVd/exec';
+const DEFAULT_ESTIMATE_GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyT6TwkszoUD1CYoluPkMUy-dcmEcI1-R2gdAioHqqZWiiCk32Jgvcn5_wZHyBkcLVd/exec';
 
 function redirectTo(request, path, status) {
 	const url = new URL(path, request.url);
@@ -14,9 +14,14 @@ function getText(formData, key) {
 	return String(formData.get(key) ?? '').trim();
 }
 
+function getEstimateGasEndpoint(context) {
+	return context.env?.ESTIMATE_GAS_ENDPOINT || DEFAULT_ESTIMATE_GAS_ENDPOINT;
+}
+
 export async function onRequestPost(context) {
 	const { request } = context;
 	const formData = await request.formData();
+	const gasEndpoint = getEstimateGasEndpoint(context);
 
 	if (getText(formData, '_honey')) {
 		return redirectTo(request, '/bouhan-vest/estimate/thanks/');
@@ -39,7 +44,7 @@ export async function onRequestPost(context) {
 		return redirectTo(request, '/bouhan-vest/estimate/', 'validation');
 	}
 
-	const gasResponse = await fetch(GAS_ENDPOINT, {
+	const gasResponse = await fetch(gasEndpoint, {
 		method: 'POST',
 		headers: {
 			'content-type': 'application/json',

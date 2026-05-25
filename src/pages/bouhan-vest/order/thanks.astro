@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../../data/site';
+
+const googleAdsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID?.trim();
+const googleAdsConversionLabel = import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_LABEL?.trim();
+const googleAdsSendTo =
+	googleAdsId && googleAdsConversionLabel
+		? `${googleAdsId}/${googleAdsConversionLabel}`
+		: undefined;
+---
+
+<BaseLayout
+	title="ご注文情報を受け付けました｜防犯ベスト・自治会ビブス名入れ専門店"
+	description="ご注文フォームの送信が完了しました。内容確認後、順次ご連絡します。"
+	path={sectionPaths.estimate}
+	canonicalPath={sectionPaths.orderThanks}
+	noindex={true}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<a href={sectionPaths.order}>ご注文フォーム</a>
+		<span class="sep">›</span>
+		<span>送信完了</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">ご注文フォーム</span>
+		<h1>ご注文情報を受け付けました</h1>
+		<p class="lead">
+			送信ありがとうございました。内容確認後、営業時間内に順次ご連絡します。
+			このページは注文完了の到達ページとしてコンバージョン計測にも利用できます。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="completion-card">
+			<div class="completion-card-main">
+				<span class="completion-badge">送信完了</span>
+				<h2>内容確認後に注文手続きを進めます</h2>
+				<p>
+					サイズ内訳、納品先、入稿予定などを確認し、不足事項があればメールまたはお電話でご連絡します。
+					急ぎ案件はお電話で補足いただくと進行が早くなります。
+				</p>
+				<ul class="completion-list">
+					<li>営業時間: 月曜-金曜 10:30 - 18:00</li>
+					<li>追加原稿や画像は返信メールでも共有できます</li>
+					<li>この到達ページを GA4 や広告のCV地点に設定できます</li>
+				</ul>
+			</div>
+			<div class="completion-actions">
+				<a class="button button-primary" href={sectionPaths.home}>トップへ戻る<span class="arrow">›</span></a>
+				<a class="button button-secondary" href={sectionPaths.order}>注文内容をもう一度見る</a>
+			</div>
+		</div>
+	</section>
+
+	<script is:inline define:vars={{ googleAdsSendTo }}>
+		const conversionKey = 'scene-order-thanks-tracked';
+
+		if (!sessionStorage.getItem(conversionKey)) {
+			sessionStorage.setItem(conversionKey, '1');
+
+			if (Array.isArray(window.dataLayer)) {
+				window.dataLayer.push({
+					event: 'order_complete',
+					form_type: 'bouhan_vest_order',
+					page_path: window.location.pathname,
+				});
+			}
+
+			if (typeof window.gtag === 'function') {
+				window.gtag('event', 'generate_lead', {
+					event_category: 'order',
+					event_label: 'bouhan_vest_order',
+					value: 1,
+				});
+
+				if (googleAdsSendTo) {
+					window.gtag('event', 'conversion', {
+						send_to: googleAdsSendTo,
+						value: 1,
+						currency: 'JPY',
+					});
+				}
+			}
+		}
+	</script>
+</BaseLayout>

@@ -1,0 +1,281 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../data/site';
+---
+
+<BaseLayout
+	title="ご注文フォーム｜防犯ベスト・自治会ビブス名入れ専門店"
+	description="防犯ベスト・自治会ビブス名入れ専門店のご注文フォームです。商品内容、納品先、入稿予定などをまとめて送信できます。"
+	path={sectionPaths.estimate}
+	canonicalPath={sectionPaths.order}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<a href={sectionPaths.estimate}>見積と相談</a>
+		<span class="sep">›</span>
+		<span>ご注文フォーム</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">ご注文フォーム</span>
+		<h1>防犯ベスト・自治会ビブスのご注文フォーム</h1>
+		<p class="lead">
+			すでに内容が固まっている場合は、このフォームからそのままご注文情報を送信できます。
+			参考元の注文フォームに合わせて、商品情報、納品先、入稿予定まで同数の設問を用意しています。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="estimate-layout">
+			<div class="estimate-form-card">
+				<h2>ご注文フォーム</h2>
+				<div class="panel-card" style="margin-bottom: 22px;">
+					<p style="margin-bottom: 10px;">お申込み前に、利用条件をご確認ください。ご送信時点で <a href={sectionPaths.terms}>利用規約</a> に同意いただいたものとして受付します。</p>
+					<p style="margin-bottom: 0; font-size: 14px; color: var(--ink-mute);">未確定の項目がある場合は、空欄のままではなく「未定」と記載いただくと進行しやすくなります。</p>
+				</div>
+				<form class="estimate-form order-form" name="order" method="post" action="/api/order" novalidate>
+					<input type="text" name="_honey" class="form-hidden-field" tabindex="-1" autocomplete="off" />
+					<label>
+						<span>1. ご希望商品名<span class="required">必須</span></span>
+						<textarea name="itemName" rows="4" placeholder="例: 反射ベスト 蛍光イエロー / 背中1色プリント" required></textarea>
+					</label>
+					<label>
+						<span>2. 商品お届け希望日</span>
+						<input type="text" name="deliveryRequest" placeholder="例: 7月10日午前着希望" />
+					</label>
+					<label>
+						<span>3. ご希望商品のボディサイズと色、購入数量<span class="required">必須</span></span>
+						<textarea name="bodySizeColorQuantity" rows="5" placeholder="例: M 10枚 / L 8枚 / 蛍光イエロー" required></textarea>
+					</label>
+					<label>
+						<span>4. プリントサイズとプリント位置</span>
+						<input type="text" name="printSizeAndPosition" placeholder="例: 背中A4程度 / 左胸100mm角" />
+					</label>
+					<label>
+						<span>5. プリントカラー</span>
+						<input type="text" name="printColor" placeholder="例: 白1色 / 黒1色" />
+					</label>
+					<label>
+						<span>6. プリント方法</span>
+						<select name="printMethod">
+							<option value="">選択してください</option>
+							<option>シルクスクリーン(衣類)</option>
+							<option>フルカラー / インクジェット転写 DTF</option>
+							<option>フルカラー / 昇華転写</option>
+							<option>刺繍</option>
+							<option>フルカラー / デジタル転写</option>
+							<option>ダイレクトインクジェット</option>
+							<option>無地購入</option>
+							<option>その他 / 不明</option>
+						</select>
+					</label>
+					<label>
+						<span>7. 使用する用途<span class="required">必須</span></span>
+						<select name="usage" required>
+							<option value="">選択してください</option>
+							<option>物販</option>
+							<option>ユニフォームや制服</option>
+							<option>クラスや部活・サークル</option>
+							<option>無料配布・プレゼント</option>
+							<option>団体で応援する用</option>
+							<option>自治会・地域活動</option>
+							<option>その他</option>
+						</select>
+					</label>
+					<label>
+						<span>8. 会社名、団体名、サークル名</span>
+						<input type="text" name="groupName" placeholder="例: ○○自治会" />
+					</label>
+					<label>
+						<span>9. お名前（姓 + 名前）<span class="required">必須</span></span>
+						<input type="text" name="name" placeholder="例: 山田 太郎" required autocomplete="name" />
+					</label>
+					<label>
+						<span>10. LINE登録名</span>
+						<input type="text" name="lineName" placeholder="例: LINEで表示されている名前" />
+					</label>
+					<div class="form-grid-two">
+						<label>
+							<span>11. 郵便番号<span class="required">必須</span></span>
+							<input type="text" name="postalCode" placeholder="例: 1100012" required />
+						</label>
+						<label>
+							<span>12. ご住所 / ご注文者様<span class="required">必須</span></span>
+							<textarea name="address" rows="4" placeholder="例: 東京都台東区..." required></textarea>
+						</label>
+					</div>
+					<div class="form-grid-two">
+						<label>
+							<span>13. 電話番号 / ご注文者様<span class="required">必須</span></span>
+							<input type="text" name="phone" placeholder="例: 0333334444" required />
+						</label>
+						<label>
+							<span>14. 携帯電話 / ご注文者様</span>
+							<input type="text" name="mobile" placeholder="例: 09012345678" />
+						</label>
+					</div>
+					<div class="form-grid-two">
+						<label>
+							<span>15. FAX / ご注文者様</span>
+							<input type="text" name="fax" placeholder="例: 0363684876" />
+						</label>
+						<label>
+							<span>16. メール / ご注文者様<span class="required">必須</span></span>
+							<input type="email" name="email" placeholder="例: info@example.jp" required autocomplete="email" />
+						</label>
+					</div>
+					<div class="form-grid-two">
+						<label>
+							<span>17. お届け先郵便番号<span class="required">必須</span></span>
+							<input type="text" name="deliveryPostalCode" placeholder="例: 1100012" required />
+						</label>
+						<label>
+							<span>18. お届け先のご住所<span class="required">必須</span></span>
+							<textarea name="deliveryAddress" rows="4" placeholder="同上の場合は同上と入力" required></textarea>
+						</label>
+					</div>
+					<div class="form-grid-two">
+						<label>
+							<span>19. お届け先名称<span class="required">必須</span></span>
+							<input type="text" name="deliveryName" placeholder="同上の場合は同上と入力" required />
+						</label>
+						<label>
+							<span>20. お届け先電話番号<span class="required">必須</span></span>
+							<input type="text" name="deliveryPhone" placeholder="同上の場合は同上と入力" required />
+						</label>
+					</div>
+					<label>
+						<span>21. お電話がつながりやすい時間帯</span>
+						<input type="text" name="goodCallTime" placeholder="例: 平日 13:00-17:00" />
+					</label>
+					<label>
+						<span>22. ご入稿方法<span class="required">必須</span></span>
+						<select name="uploadMethod" required>
+							<option value="">選択してください</option>
+							<option>完全版下原稿</option>
+							<option>ラフスケッチ</option>
+							<option>デザインシミュレーター</option>
+							<option>その他 / 不明</option>
+							<option>無地での購入</option>
+						</select>
+					</label>
+					<label>
+						<span>23. データ作成ソフト</span>
+						<input type="text" name="software" placeholder="例: Illustrator CC / Windows" />
+					</label>
+					<div class="form-grid-two">
+						<label>
+							<span>24. デザインデータご入稿予定日<span class="required">必須</span></span>
+							<input type="text" name="dataSchedule" placeholder="例: 6月20日入稿予定" required />
+						</label>
+						<label>
+							<span>25. 個別袋詰め有無<span class="required">必須</span></span>
+							<select name="bagging" required>
+								<option value="">選択してください</option>
+								<option>無し</option>
+								<option>有り</option>
+								<option>マグカップ 緩衝用小箱入り</option>
+								<option>マグカップ 上質箱のみ</option>
+								<option>マグカップ 上質箱 + 包装紙</option>
+							</select>
+						</label>
+					</div>
+					<div class="form-grid-two">
+						<label>
+							<span>26. 使用する日<span class="required">必須</span></span>
+							<input type="text" name="useDate" placeholder="例: 7月15日の地域パトロールで使用" required />
+						</label>
+						<label>
+							<span>27. 写真と感想で割引</span>
+							<select name="photoDiscount">
+								<option value="">選択してください</option>
+								<option>利用する</option>
+								<option>利用しない</option>
+							</select>
+						</label>
+					</div>
+					<label>
+						<span>28. フリー欄（ご質問、ご要望等）</span>
+						<textarea name="freeMessage" rows="5" placeholder="過去注文の担当者名、補足事項、権利確認が必要な内容など"></textarea>
+					</label>
+					<p class="form-note">送信後すぐに自動返信は行っていないため、2〜3営業日以内に連絡がない場合はお電話でご確認ください。</p>
+					<p class="form-status" data-form-status aria-live="polite"></p>
+					<button class="button button-primary" type="submit">内容を確認して注文情報を送信する<span class="arrow">›</span></button>
+				</form>
+			</div>
+
+			<div class="panel-stack">
+				<div class="panel-card">
+					<span class="panel-label">入力時のポイント</span>
+					<ul class="dot-list">
+						<li>サイズ内訳、色、数量は改行付きでまとめると確認が早くなります。</li>
+						<li>納品先が注文者住所と同じ場合でも、「同上」と入力してください。</li>
+						<li>入稿予定日と使用日は、制作スケジュール判断の基準になるためできるだけ具体的に入れてください。</li>
+					</ul>
+				</div>
+				<div class="panel-card">
+					<span class="panel-label">送信前の確認</span>
+					<p>注文フォームは、見積や仕様確認を終えた内容を正式送信する想定です。未確定項目が多い場合は、先に <a href={sectionPaths.estimate}>無料見積フォーム</a> から整理してください。</p>
+				</div>
+				<div class="panel-card">
+					<span class="panel-label">お電話での確認</span>
+					<p style="font-family: var(--font-serif); font-size: 1.4rem; color: var(--green-deep); font-weight: 700; margin-top: 6px;">050-3733-8888</p>
+					<p style="font-size: 14px; color: var(--ink-mute);">営業時間　月曜-金曜 10:30 - 18:00（日・祝日を除く）</p>
+					<p style="font-size: 14px; color: var(--ink-mute);">FAX：03-6368-4876</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script is:inline>
+		const orderForm = document.querySelector('.order-form');
+
+		if (orderForm instanceof HTMLFormElement) {
+			const submitButton = orderForm.querySelector('button[type="submit"]');
+			const statusElement = orderForm.querySelector('[data-form-status]');
+			const searchParams = new URLSearchParams(window.location.search);
+
+			const setStatus = (message, state) => {
+				if (!(statusElement instanceof HTMLElement)) {
+					return;
+				}
+
+				statusElement.textContent = message;
+				statusElement.dataset.state = state;
+			};
+
+			if (searchParams.has('error')) {
+				setStatus('送信に失敗しました。入力内容をご確認のうえ再度お試しください。', 'error');
+				window.history.replaceState({}, '', window.location.pathname + window.location.hash);
+			}
+
+			orderForm.addEventListener('submit', (event) => {
+				if (!orderForm.reportValidity()) {
+					event.preventDefault();
+					setStatus('必須項目を入力してから送信してください。', 'error');
+					return;
+				}
+
+				const formData = new FormData(orderForm);
+				const replyTo = String(formData.get('email') ?? '');
+				let replyToField = orderForm.querySelector('input[name="_replyto"]');
+
+				if (!(replyToField instanceof HTMLInputElement)) {
+					replyToField = document.createElement('input');
+					replyToField.type = 'hidden';
+					replyToField.name = '_replyto';
+					orderForm.append(replyToField);
+				}
+
+				replyToField.value = replyTo;
+
+				if (submitButton instanceof HTMLButtonElement) {
+					submitButton.disabled = true;
+				}
+
+				setStatus('送信中です。数秒お待ちください。', 'sending');
+			});
+		}
+	</script>
+</BaseLayout>
