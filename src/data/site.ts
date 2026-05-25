@@ -7,6 +7,7 @@ export const sectionPaths = {
 	estimate: '/bouhan-vest/estimate/',
 	estimateThanks: '/bouhan-vest/estimate/thanks/',
 	privacy: '/bouhan-vest/privacy/',
+	terms: '/bouhan-vest/terms/',
 } as const;
 
 export const futureScenePaths = {
