@@ -1,8 +1,11 @@
 const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyT6TwkszoUD1CYoluPkMUy-dcmEcI1-R2gdAioHqqZWiiCk32Jgvcn5_wZHyBkcLVd/exec';
 
-function redirectWithStatus(request, status) {
-	const url = new URL('/bouhan-vest/estimate/', request.url);
-	url.searchParams.set(status, '1');
+function redirectTo(request, path, status) {
+	const url = new URL(path, request.url);
+
+	if (status) {
+		url.searchParams.set(status, '1');
+	}
 
 	return Response.redirect(url.toString(), 303);
 }
@@ -16,7 +19,7 @@ export async function onRequestPost(context) {
 	const formData = await request.formData();
 
 	if (getText(formData, '_honey')) {
-		return redirectWithStatus(request, 'sent');
+		return redirectTo(request, '/bouhan-vest/estimate/thanks/');
 	}
 
 	const payload = {
@@ -33,7 +36,7 @@ export async function onRequestPost(context) {
 	};
 
 	if (!payload.name || !payload.email || !payload.message) {
-		return redirectWithStatus(request, 'validation');
+		return redirectTo(request, '/bouhan-vest/estimate/', 'validation');
 	}
 
 	const gasResponse = await fetch(GAS_ENDPOINT, {
@@ -45,14 +48,14 @@ export async function onRequestPost(context) {
 	});
 
 	if (!gasResponse.ok) {
-		return redirectWithStatus(request, 'gas-http');
+		return redirectTo(request, '/bouhan-vest/estimate/', 'gas-http');
 	}
 
 	const result = await gasResponse.json().catch(() => null);
 
 	if (!result?.ok) {
-		return redirectWithStatus(request, 'gas-response');
+		return redirectTo(request, '/bouhan-vest/estimate/', 'gas-response');
 	}
 
-	return redirectWithStatus(request, 'sent');
+	return redirectTo(request, '/bouhan-vest/estimate/thanks/');
 }

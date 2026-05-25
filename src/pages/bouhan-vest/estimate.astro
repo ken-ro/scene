@@ -176,10 +176,7 @@ const faqItems = [
 				statusElement.dataset.state = state;
 			};
 
-				if (searchParams.get('sent') === '1') {
-				setStatus('見積依頼を送信しました。担当者が内容を確認のうえご連絡します。', 'success');
-				window.history.replaceState({}, '', window.location.pathname + window.location.hash);
-				} else if (searchParams.has('error')) {
+				if (searchParams.has('error')) {
 				setStatus('送信に失敗しました。時間をおいて再度お試しいただくか、お電話でご相談ください。', 'error');
 				window.history.replaceState({}, '', window.location.pathname + window.location.hash);
 			}

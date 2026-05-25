@@ -5,6 +5,7 @@ export const sectionPaths = {
 	items: '/bouhan-vest/items/',
 	guide: '/bouhan-vest/guide/',
 	estimate: '/bouhan-vest/estimate/',
+	estimateThanks: '/bouhan-vest/estimate/thanks/',
 	privacy: '/bouhan-vest/privacy/',
 } as const;
 

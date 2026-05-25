@@ -760,6 +760,66 @@ h2 + p, h2 + .lead, h3 + p { margin-top: 12px; }
 }
 .panel-card p { font-size: 15.5px; line-height: 1.8; }
 
+.completion-card {
+	background: var(--paper-light);
+	border: 1px solid var(--rule-soft);
+	border-top: 4px solid var(--green);
+	border-radius: var(--radius);
+	padding: 30px 32px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 28px;
+	align-items: center;
+}
+
+.completion-card-main {
+	display: grid;
+	gap: 14px;
+}
+
+.completion-badge {
+	display: inline-flex;
+	width: fit-content;
+	padding: 7px 14px;
+	background: var(--green-pale);
+	color: var(--green-deep);
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+	border-radius: 999px;
+}
+
+.completion-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: grid;
+	gap: 8px;
+}
+
+.completion-list li {
+	position: relative;
+	padding-left: 18px;
+	line-height: 1.75;
+}
+
+.completion-list li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.72em;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--green);
+}
+
+.completion-actions {
+	display: grid;
+	gap: 12px;
+	min-width: 260px;
+}
+
 .dot-list {
 	margin: 0;
 	padding: 0;
@@ -1340,6 +1400,13 @@ tbody td:last-child {
 	.two-col, .two-col-wide, .estimate-layout {
 		grid-template-columns: 1fr;
 		gap: 28px;
+	}
+	.completion-card {
+		grid-template-columns: 1fr;
+		padding: 24px 22px;
+	}
+	.completion-actions {
+		min-width: 0;
 	}
 	.cta-banner {
 		grid-template-columns: 1fr;

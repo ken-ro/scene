@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { sectionPaths } from '../../../data/site';
+---
+
+<BaseLayout
+	title="見積依頼を受け付けました｜防犯ベスト・自治会ビブス名入れ専門店"
+	description="無料見積フォームの送信が完了しました。担当者が内容を確認のうえ、順次ご連絡します。"
+	path={sectionPaths.estimate}
+	noindex={true}
+>
+	<div class="breadcrumb">
+		<a href={sectionPaths.home}>トップ</a>
+		<span class="sep">›</span>
+		<a href={sectionPaths.estimate}>見積と相談</a>
+		<span class="sep">›</span>
+		<span>送信完了</span>
+	</div>
+
+	<section class="page-hero">
+		<span class="eyebrow">無料見積フォーム</span>
+		<h1>見積依頼を受け付けました</h1>
+		<p class="lead">
+			送信ありがとうございました。担当者が内容を確認のうえ、営業時間内に順次ご連絡します。
+			この完了ページは、コンバージョン計測の到達先としてそのまま利用できます。
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="completion-card">
+			<div class="completion-card-main">
+				<span class="completion-badge">送信完了</span>
+				<h2>内容確認後にご連絡します</h2>
+				<p>
+					用途、枚数、プリント内容、希望納期などを確認しながら、見積の進め方をご案内します。
+					画像や原稿がある場合は、あとからメール返信でも共有可能です。
+				</p>
+				<ul class="completion-list">
+					<li>営業時間: 月曜-金曜 10:30 - 18:00</li>
+					<li>急ぎの場合はお電話でも確認できます</li>
+					<li>このページ到達を GA4 や広告のCV地点に設定できます</li>
+				</ul>
+			</div>
+			<div class="completion-actions">
+				<a class="button button-primary" href={sectionPaths.home}>トップへ戻る<span class="arrow">›</span></a>
+				<a class="button button-secondary" href={sectionPaths.items}>商品と料金を見る</a>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="section-title-bar">
+			<h2>ご案内の流れ</h2>
+			<div class="section-sub">初回相談では分かる範囲だけでも問題ありません</div>
+		</div>
+		<div class="info-grid">
+			<article class="info-card">
+				<h3><span class="card-no">01</span>内容確認</h3>
+				<p>入力いただいた内容を確認し、必要があれば追加の確認事項をご連絡します。</p>
+			</article>
+			<article class="info-card">
+				<h3><span class="card-no">02</span>候補整理</h3>
+				<p>用途や枚数に合わせて、商品候補と加工条件を整理してご案内します。</p>
+			</article>
+			<article class="info-card">
+				<h3><span class="card-no">03</span>見積ご案内</h3>
+				<p>団体名の入れ方、サイズ構成、納期、必要書類の有無まで順に詰めていきます。</p>
+			</article>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="panel-stack">
+			<div class="panel-card">
+				<span class="panel-label">お急ぎの確認</span>
+				<p>営業時間内でしたら、お電話での確認も可能です。TEL: 050-3733-8888</p>
+			</div>
+		</div>
+	</section>
+
+	<script is:inline>
+		const conversionKey = 'scene-estimate-thanks-tracked';
+
+		if (!sessionStorage.getItem(conversionKey)) {
+			sessionStorage.setItem(conversionKey, '1');
+
+			if (Array.isArray(window.dataLayer)) {
+				window.dataLayer.push({
+					event: 'estimate_complete',
+					form_type: 'bouhan_vest_estimate',
+					page_path: window.location.pathname,
+				});
+			}
+
+			if (typeof window.gtag === 'function') {
+				window.gtag('event', 'generate_lead', {
+					event_category: 'estimate',
+					event_label: 'bouhan_vest_estimate',
+					value: 1,
+				});
+			}
+		}
+	</script>
+</BaseLayout>
