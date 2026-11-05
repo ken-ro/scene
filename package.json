@@ -14,5 +14,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "astro": "7.3.3"
+  },
+  "overrides": {
+    "@astrojs/prism": "4.1.2"
   }
 }
